@@ -1,0 +1,11 @@
+.user {
+  .clickable {
+    cursor: pointer;
+    &:hover {
+      background-color: rgba(0, 255, 255, 0.253);
+    }
+  }
+  .selected {
+    background-color: rgba(150, 175, 175, 0.699);
+  }
+}

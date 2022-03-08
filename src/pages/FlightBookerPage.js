@@ -5,6 +5,7 @@ import { Form, Button } from "react-bootstrap";
 import { FLIGHT_TYPES } from "../constants";
 import { validateDate, isEndDateValid } from "../utils";
 import { toast } from "react-toastify";
+import classNames from "classnames";
 
 const FlightBookerPage = () => {
   const styles = { width: "18rem" };
@@ -36,10 +37,10 @@ const FlightBookerPage = () => {
     const { dateTimeStamp, error } = validateDate(value);
     const updatedState = {
       ...state,
-      [state.errors.name]: error,
-      [state[name].timestamp]: dateTimeStamp ? dateTimeStamp : null,
-      [state[name].inputVal]: value,
     };
+    updatedState[name].inputVal = value;
+    updatedState[name].timestamp = dateTimeStamp ? dateTimeStamp : null;
+    updatedState.errors[name] = error;
     setState(updatedState);
   };
 
@@ -48,10 +49,16 @@ const FlightBookerPage = () => {
     if (isEndDateValid(startDate.timestamp, endDate.timestamp)) {
       toast.success("Successfully booked with ");
     } else {
-      // setState(...state, [errors]: "")
+      toast.error("Booking Failed");
+      const updatedState = {
+        ...state,
+      };
+      updatedState.errors["endDate"] =
+        "The End Date should be after Start Date";
+      setState(updatedState);
     }
   };
-  const { startDate, endDate } = state;
+  const { startDate, endDate, errors } = state;
   console.log("state", state);
   return (
     <MainLayout>
@@ -74,8 +81,15 @@ const FlightBookerPage = () => {
               value={startDate.inputVal}
               onChange={onChange}
               placeholder="Enter Start Date"
+              className={classNames({
+                "bg-red": errors["startDate"],
+                "border border-danger": errors["startDate"],
+              })}
             />
           </Form.Group>
+          {errors["startDate"] && (
+            <p className="text-danger">{errors["startDate"]}</p>
+          )}
           <Form.Group className="mb-3">
             <Form.Label>End Date</Form.Label>
             <Form.Control
@@ -85,8 +99,15 @@ const FlightBookerPage = () => {
               value={endDate.inputVal}
               disabled={selectedType === FLIGHT_TYPES[0]}
               placeholder="Enter End Date"
+              className={classNames({
+                "bg-red": errors["endDate"],
+                "border border-danger": errors["endDate"],
+              })}
             />
           </Form.Group>
+          {errors["endDate"] && (
+            <p className="text-danger mb-2">{errors["endDate"]}</p>
+          )}
           <Button onClick={onBook} variant="info">
             Book
           </Button>

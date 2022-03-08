@@ -5,6 +5,8 @@ import NotFoundPage from "../pages/NotFoundPage";
 import CounterPage from "../pages/CounterPage";
 import TempConverterPage from "../pages/TempConverterPage";
 import FlightBookerPage from "../pages/FlightBookerPage";
+import TimerPage from "../pages/TimerPage";
+import UserPage from "../pages/UserPage";
 
 const Routing = (_) => {
   return (
@@ -13,6 +15,9 @@ const Routing = (_) => {
       <Route path="/counter" element={<CounterPage />} />
       <Route path="/temp-converter" element={<TempConverterPage />} />
       <Route path="/flight-booker" element={<FlightBookerPage />} />
+      <Route path="/timer" element={<TimerPage />} />
+      <Route path="/user-crud" element={<UserPage />} />
+
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );

@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  user: null,
+  users: [],
+  filteredUsers: [],
 };
 
 export const userSlice = createSlice({
@@ -9,15 +10,18 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     createUser: (state, action) => {
-      // state.user = payload;
+      const { payload } = action;
+      state.users = [...state.users, payload];
     },
     updateUser: (state, action) => {
-      // state.user.email = payload.email;
-      // state.user.name = payload.name;
-      // state.user.role = payload.role;
+      const { payload } = action;
+      const { key, user } = payload;
+      state.users[key] = user;
     },
-    removeUser: (state) => {
-      // state.user = null;
+    removeUser: (state, key) => {
+      state.users = state.users.filter(function (index) {
+        return index !== key;
+      });
     },
   },
 });

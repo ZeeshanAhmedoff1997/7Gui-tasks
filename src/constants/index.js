@@ -3,7 +3,7 @@ export const TASK_NAMES = [
   "Temp Converter",
   "Flight Booker",
   "Timer",
-  "CRUD",
+  "User CRUD",
   "Circle Drawer",
   "Cells",
 ];

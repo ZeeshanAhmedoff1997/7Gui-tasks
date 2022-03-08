@@ -1,0 +1,7 @@
+.bg-red {
+  background-color: rgb(245, 153, 153);
+  &:focus,
+  &:active {
+    background-color: rgb(245, 153, 153);
+  }
+}
