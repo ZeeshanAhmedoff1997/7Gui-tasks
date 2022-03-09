@@ -3,12 +3,11 @@ import TaskLayout from "../components/Layout/TaskLayout";
 import MainLayout from "../components/Layout/MainLayout";
 import { Button, Form } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
-import { createUser, removeUser, updateUser } from "../redux/userSlice";
+import { createUser, removeUser, updateUser, filterUsers } from "../redux/userSlice";
 import { toast } from "react-toastify";
-import { classNames } from "classnames";
 
 const UserPage = () => {
-  const { users } = useSelector((state) => state.user);
+  const { filteredUsers, users } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const styles = { width: "30rem" };
   const [user, setUser] = useState({
@@ -57,17 +56,20 @@ const UserPage = () => {
   };
 
   const onUpdate = () => {
-    dispatch(updateUser(index, user));
-    toast.success("Update Successfully");
+    dispatch(updateUser({key: index, user: user}));
+    toast.success("Updated Successfully");
     reset();
   };
 
   const onUserDelete = () => {
-    dispatch(removeUser(index));
-    toast.success("deleted Successfully");
+    dispatch(removeUser({key: index}));
+    toast.success("Deleted Successfully");
     reset();
   };
-  const onFilter = ({ value }) => {};
+  const onFilter = ({ target }) => {
+    const { value } = target
+    dispatch(filterUsers(value))
+  };
 
   return (
     <MainLayout>
@@ -77,7 +79,7 @@ const UserPage = () => {
             <Form>
               <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Filter</Form.Label>
-                <Form.Control type="text" placeholder="Enter name ... " />
+                <Form.Control type="text" onChange={onFilter} placeholder="Enter name ... " />
                 <Form.Text className="text-muted">
                   Filter out by name.
                 </Form.Text>
@@ -88,7 +90,7 @@ const UserPage = () => {
               style={{ height: "100px", overflow: "scroll" }}
               className="border border-2"
             >
-              {users.map((user, key) => (
+              {filteredUsers.map((user, key) => (
                 <div
                   key={key}
                   onClick={() => onClick(key)}

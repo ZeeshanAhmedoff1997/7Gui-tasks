@@ -5,7 +5,7 @@ import classNames from "classnames";
 const MainLayout = ({ children, col = 6, margin = 5, order = 6 }) => {
   return (
     <Container fluid>
-      <div className="row">
+      <div className="row d-flex justify-content-center">
         <div className={classNames(`col-${col} m-${margin} order-${order}`)}>
           {children}
         </div>
