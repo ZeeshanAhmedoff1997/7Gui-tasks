@@ -20,6 +20,7 @@ const TimerPage = () => {
           setProgress={setProgress}
           duration={duration}
           resetTimer={reset}
+          setDuration={setDuration}
         />
         <RangeSlider
           value={duration}
@@ -30,7 +31,7 @@ const TimerPage = () => {
           max={30}
           variant="success"
         />
-        <Button variant="info" onClick={() => setReset(true)}>
+        <Button variant="info" onClick={() => setReset(!reset)}>
           Reset Timer
         </Button>
       </TaskLayout>

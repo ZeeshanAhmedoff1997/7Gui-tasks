@@ -1,6 +1,7 @@
 import React from "react";
 import { Container } from "react-bootstrap";
 import classNames from "classnames";
+import PropTypes from 'prop-types'
 
 const MainLayout = ({ children, col = 6, margin = 5, order = 6 }) => {
   return (
@@ -13,5 +14,14 @@ const MainLayout = ({ children, col = 6, margin = 5, order = 6 }) => {
     </Container>
   );
 };
+
+MainLayout.propTypes = {
+  children: PropTypes.oneOfType([
+      PropTypes.arrayOf(PropTypes.node),
+      PropTypes.node
+    ]).isRequired,
+  col: PropTypes.number,
+  order: PropTypes.number,
+}
 
 export default MainLayout;

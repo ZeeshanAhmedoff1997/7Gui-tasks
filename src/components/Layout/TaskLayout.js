@@ -1,5 +1,6 @@
 import React from "react";
 import { Card } from "react-bootstrap";
+import PropTypes from 'prop-types'
 
 const TaskLayout = ({ children, headerText, styles }) => {
   return (
@@ -9,5 +10,14 @@ const TaskLayout = ({ children, headerText, styles }) => {
     </Card>
   );
 };
+
+TaskLayout.propTypes = {
+  children: PropTypes.oneOfType([
+      PropTypes.arrayOf(PropTypes.node),
+      PropTypes.node
+    ]).isRequired,
+  headerText: PropTypes.string.isRequired,
+  styles: PropTypes.object,
+}
 
 export default TaskLayout;
